@@ -1,23 +1,29 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react'; 
 
 function CheckPass(props) {
 
-    const {toPass} = props;
-    const [passStrength, setStrength] = useState ("Week Password")
+    const {password} = props;
+    const {prevent} = props;
+    const [massege, setMessage] = useState ("Week Password");
     
-
-    function checkStrength(){
-        setStrength(
-            function(){
-                if (toPass.length < 3)
-                return ("week");
-            }
-        );       
-    }
+    useEffect(()=>{
+      if (password.length <= 2){
+        setMessage("Week Password");
+        prevent(true);
+      }
+      else if (password.length > 2 && password.length <=6 ){
+        setMessage("Medium Password");
+        prevent(false);
+      }
+      else {
+        setMessage("Strong Password");
+        prevent(false);
+      }
+    },[password,prevent])
 
     return (
       <div>
-        <h2> {passStrength} </h2>
+        <h2> {massege} </h2>
       </div>
     );
   }

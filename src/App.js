@@ -4,18 +4,19 @@ import CheckPass from './CheckPass';
 
 
 function App() {
-  const [toPass, setToPass] = useState('');
+  const [password, setPassword] = useState('');
+  const [preventSubmit, setPreventSubmit] = useState(true);
   
 
-  function handleToDoCahnge(e){
-    setToPass(e.target.value);
+  function handlePassword(e){
+    setPassword(e.target.value);
   }
 
   return (
     <div className="App">
-      <input className='passInput' value= {toPass} onChange = {handleToDoCahnge}/>
-      <button >Submit</button>
-      <CheckPass toPass = {toPass}/>
+      <input type = "password" value = {password} onChange = {handlePassword}></input>
+      <button disabled = {preventSubmit}>Submit</button>
+      <CheckPass password = {password} prevent = {setPreventSubmit}></CheckPass>
     </div>
   );
 }
